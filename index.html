@@ -1,34 +1,147 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Project</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins-Regular;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #d1d1d1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .container {
+            background-image: url(https://cdn.pixabay.com/photo/2016/10/20/18/35/earth-1756274_640.jpg);
+            background-color: #363636;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 40%;
+            height: auto;
+            max-width: 400px;
+        }
+
+        .FormContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .FormContainer input,
+        .FormContainer select,
+        .FormContainer button {
+            margin: 10px;
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .but {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .but:hover {
+            background-color: #0056b3;
+        }
+
+        h3 {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 200;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-	<form onsubmit="return false;">
-	<label>1st Number: </label>
-		<input type="number" id="number1"><br><br>
-	<label>2nd number: </label>
-		<input type="text" id="number2"><br><br>		
-		<button type="button" onclick="multiplication()">Multiply</button><button type="button" onclick="division()">Division</button><br><br>
-		<h3 fontsize="30">The Result Is:</h3><input type="text" id="result" readonly>
+    <div class="container">
+        <div>
+            <h2>Simple Calculator Project</h2>
+        </div>
+        <form action="" class="FormContainer">
+            <input type="number" id="StNum" class="StNum" placeholder="Type your first number between 1-1000" min="1" max="1000">
+            <input type="number" id="SecNum" class="SecNum" placeholder="Type your second number between 1-1000" min="1" max="1000">
+            <select name="select" id="Operation">
+                <option value="" disabled selected>Select your operation</option>
+                <option value="+">Add</option>
+                <option value="-">Minus</option>
+                <option value="*">Multiply</option>
+                <option value="/">Division</option>
+                <option value="%">The Rest</option>
+            </select>
+            <h3 id="result"></h3>
+            <button type="button" onclick="myFunction()" class="but">Calculate</button>
+        </form>
+    </div>
 
-	</form>
-	
-	<script>
-	function multiplication(){
-		var num1 = parseInt(document.getElementById("number1").value) ;
-		var num2 = parseInt(document.getElementById("number2").value) ;
-		var result = num1 * num2 ;
-		return document.getElementById("result").value = result ;
-	}
-	function division(){
-		var num1 = parseInt(document.getElementById("number1").value) ;
-		var num2 = parseInt(document.getElementById("number2").value) ;
-		var result = num1 / num2 ;
-		return document.getElementById("result").value = result ;
-	}
-	</script>
+    <script>
+        function myFunction() {
+            var num1 = parseFloat(document.getElementById('StNum').value);
+            var num2 = parseFloat(document.getElementById('SecNum').value);
+            var operation = document.getElementById('Operation').value;
+            var result;
+            // Validate input
+            if (isNaN(num1) || isNaN(num2)) {
+                result = "Please enter valid numbers.";
+            } else if (operation === "") {
+                result = "Please select an operation.";
+            } else {
+                // Perform the operation
+                switch (operation) {
+                    case "+":
+                        result = num1 + num2;
+                        break;
+                    case "-":
+                        result = num1 - num2;
+                        break;
+                    case "*":
+                        result = num1 * num2;
+                        break;
+                    case "/":
+                        if (num2 === 0) {
+                            result = "Division by zero is not allowed.";
+                        } else {
+                            result = num1 / num2;
+                        }
+                        break;
+                    case "%":
+                        if (num2 === 0) {
+                            result = "Division by zero is not allowed.";
+                        } else {
+                            result = num1 % num2;
+                        }
+                        break;
+                    default:
+                        result = "Invalid operation.";
+                }
+            }
+
+            // Display the result
+            document.getElementById('result').innerText = result;
+        }
+    </script>
 </body>
+
 </html>
